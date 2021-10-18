@@ -2,13 +2,30 @@
 import copy
 
 
-inputs = [4,2,1,3,0,1,0,1]
+# inputs = [4,2,1,3,0,1,0,1]
 
-result = [[1],[2,2],[2,2],[2,2,1],[1,2,1],[2],[2],[1],[1],[0],[15]]
+# result = [[1],[2,2],[2,2],[2,2,1],[1,2,1],[2],[2],[1],[1],[0],[15]]
 
-def something():
-    outputs = []
+
+def get_file():
+
+    with open("inputs.txt", 'r') as f:
+        inputs = [int(x.strip()) for x in f.readlines()]
+        balance(inputs)
+
+
+def make_file(outputs):
     
+    with open("outputs.txt", "w") as f:
+        for line in outputs:
+            output_line = ",".join([ str(x) for x in line]) + "\n"
+            inputs = f.writelines(output_line)
+
+
+
+def balance(inputs):
+    outputs = []
+
     time_task, user_max = inputs[:2]
     users = inputs[2:]
     users_copy = copy.deepcopy(users)
@@ -43,8 +60,9 @@ def something():
         if not users_copy:
             break
     print(outputs)
+    make_file(outputs)
 
 
 
 if __name__ == "__main__":
-    something()
+    get_file()
